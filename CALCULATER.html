@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+ 
+<head>
+  <meta charset="utf-8">
+  <title>Simple Calculator using HTML, CSS and JavaScript</title>
+  <style>
+      .calculator {
+    padding: 10px;
+    height: 380px;
+    width: 50%;
+    margin: auto;
+    background-color: #3d05be;
+    border: solid rgb(223, 19, 29) 3px;
+}
+.display-box {
+    font-family: 'Orbitron', sans-serif;
+    background-color:#ffffff;
+    border: solid rgb(216, 236, 32) 2px;
+    color: black;
+    width: 98%;
+    height: 100%;
+    font-size: 25px;
+}
+#btn {
+    background-color: #fb0066;
+}
+input[type=button] {
+    background-color: #4becf1;
+    color: rgb(17, 9, 9);
+    font-style: oblique;
+    font-size: 20px;
+    border-color: #e1f010;
+    width: 99%;
+    height: 90%;
+}
+input:active[type=button] {
+    background: #ffffff;
+}
+  </style>
+</head>
+ 
+<body>
+ 
+<table class="calculator" >
+  <tr>
+    <td colspan="4"> <input class="display-box" type="text" id="result" disabled /> </td>
+  </tr>
+  <tr>
+    <td> <input type="button" value="1" onclick="display('1')" /> </td>
+    <td> <input type="button" value="2" onclick="display('2')" /> </td>
+    <td> <input type="button" value="3" onclick="display('3')" /> </td>
+    <td> <input type="button" value="+" onclick="display('+')" /> </td>
+  </tr>
+  <tr>
+    <td> <input type="button" value="4" onclick="display('4')" /> </td>
+    <td> <input type="button" value="5" onclick="display('5')" /> </td>
+    <td> <input type="button" value="6" onclick="display('6')" /> </td>
+    <td> <input type="button" value="-" onclick="display('-')" /> </td>
+  </tr>
+  <tr>
+    <td> <input type="button" value="7" onclick="display('7')" /> </td>
+    <td> <input type="button" value="8" onclick="display('8')" /> </td>
+    <td> <input type="button" value="9" onclick="display('9')" /> </td>
+    <td> <input type="button" value="*" onclick="display('*')" /> </td>
+    
+  </tr>
+  <tr>
+    <td> <input type="button" value="." onclick="display('.')" /> </td>
+    <td> <input type="button" value="0" onclick="display('0')" /> </td>
+    <td> <input type="button" value="=" onclick="calculate()" ondblclick="number2words(n)" id="btn" /> </td>
+    <td> <input type="button" value="/" onclick="display('/')" /> </td>
+    
+  </tr>
+  <tr>
+    <td colspan="2"> <input type="button" value="Cancel" onclick="clearScreen()" id="btn" /> </td>
+  </tr>
+</table>
+ 
+<script type="text/javascript" >
+function clearScreen() {
+    document.getElementById("result").value = "";
+    
+}
+function display(value) {
+    document.getElementById("result").value += value;
+
+}
+function calculate() {
+    var p = document.getElementById("result").value;
+    var q = eval(p);
+    if(q=="Infinity"){
+      document.getElementById("result").value ="invalid";
+      document.getElementById("result").style.backgroundColor="#f77b7b";
+    }
+    else{
+      document.getElementById("result").value ="("+ number2words(q)+")"+q;
+      document.getElementById("result").style.backgroundColor="#4bf18b";
+    }
+    // document.getElementById("result").value ="("+ number2words(q)+")"+q;
+    // if(q=="Infinity"){
+    //   document.getElementById("result").style.backgroundColor="#f77b7b";
+    // }
+    // var j = document.getElementById("result").value;
+    // var s=j.includes(/^[\+||\/||\-||\*]*{2,}$/)
+    // if(s==true){
+    //     document.getElementById("result").style.backgroundColor="#f77b7b";
+    // }
+    // else{
+    //     document.getElementById("result").style.backgroundColor="#4bf18b";
+    // }
+}
+var num = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen".split(" ");
+var tens = "twenty thirty forty fifty sixty seventy eighty ninety".split(" ");
+function number2words(n){
+    if (n < 20) return num[n];
+    var digit = n%10;
+    if (n < 100) return tens[~~(n/10)-2] + (digit? "-" + num[digit]: "");
+    if (n < 1000) return num[~~(n/100)] +" hundred" + (n%100 == 0? "": " and " + number2words(n%100));
+    alert( number2words(~~(n/1000)) + " thousand" + (n%1000 != 0? " " + number2words(n%1000): ""));
+}
+</script>
+ 
+</body>
+ 
+</html>
